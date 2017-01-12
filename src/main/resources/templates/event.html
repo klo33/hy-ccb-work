@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Event</title>
+    </head>
+    <body th:object="${event}">
+        <header th:replace="fragments/header :: header">
+            <div>..</div>
+        </header>
+        
+        <h1>Event - <span th:text="*{name}">Event name</span></h1>
+        <p>Date: <span th:text="*{date}" th:remove="tag">22.3.4016</span></p>
+        <form th:action="@{/events/{id}(id=${event.id})}" th:method="DELETE"><input type="submit" value="Poista"/></form>
+        <div th:if="${event.signups}" th:remove="tag">
+        <h2>Enrolled</h2>
+        <table>
+            <tr>
+                <th>Name</th><th>Address</th><th>Email</th>
+            </tr>
+            <tr th:each="entry:${event.signups}">
+                <td th:text="${entry.name}">Eeva Määttä</td><td th:text="${entry.address}">Mätäkuja 2</td><td th:text="${entry.email}">ee@ee.com</td>
+            </tr>
+        </table>
+        </div>
+        
+        <h1>Sign up to the event using this form</h1>
+
+        <form action="#" th:action="@{events/{id}/form(id=${event.id})}" method="POST" th:object="${signup}" th:replace="form :: signupform">
+            <p><label for="name">Name</label>: <input type="text" name="name" id="name"/></p>
+            <p><label for="address">Address</label>: <input type="text" name="address" id="address"/></p>
+            <p><input type="submit" value="Submit" /></p>
+        </form>
+
+        <p></p>
+    </body>
+</html>
+

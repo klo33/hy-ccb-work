@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Signups</title>
+    </head>
+    <body>
+        <header th:replace="fragments/header :: header">
+            <div>..</div>
+        </header>
+        <h2>Signups you have made</h2>
+        <table>
+            <tr th:each="signup: ${signups}">
+                <td th:text="${signup.event.name}">Tapahtuman nimi</td>
+                <td><form th:action="@{/events/{id}/form(id=${signup.event.id})}" th:method="DELETE"><input type="submit" value="Cancel" /></form></td>
+            </tr>
+        </table>
+        
+
+    </body>
+</html>
+

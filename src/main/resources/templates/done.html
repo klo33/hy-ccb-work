@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Thank you!</title>
+    </head>
+    <body>
+        <header>
+            <div th:replace="fragments/header :: header">..</div>
+        </header>
+
+        <h1>Thank you! You have been signed up to the event!</h1>
+        
+        <p>Username <span th:text="${username}">username</span></p>
+        <p>Password <span th:text="${password}">password</span></p>
+
+    </body>
+</html>

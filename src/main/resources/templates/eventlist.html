@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Sign up form</title>
+        <style>
+            .piilotettu {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div th:replace="fragments/header :: header">..</div>
+        </header>
+
+        <h1>List of all events</h1>
+
+        <ul>
+            <li th:each="event:${events}" th:classappend="${event.isPrivate}?piilotettu"><a th:href="@{/events/{id}(id=${event.id})}" th:text="${event.name}">Nimi</a></li>
+        </ul>
+
+        <form action="#" th:action="@{/events}" method="POST">
+            <p><label for="name">Name</label>: <input type="text" name="name" id="name"/></p>
+            <p><label for="date">Date</label>: <input type="date" name="date" id="date"/></p>
+            <p><label for="priv">Private</label>: <input type="checkbox" name="priv" id="priv"/></p>
+            <p><input type="submit" value="Submit" /></p>
+        </form>
+
+        
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>User details</title>
+    </head>
+    <body>
+        <header th:replace="fragments/header :: header">
+            <div>..</div>
+        </header>
+        <h2>Your info</h2>
+        <div><span th:utext="${tiedot}" th:remove="tag"></span></div>
+
+        <h3>Change password</h3>
+
+        <form action="#" th:action="@{/users/own/password}" th:method="GET">
+            <p><label for="pw1">New password</label>: <input type="text" name="pw1" id="name"/></p>
+            <p><label for="pw2">New password again</label>: <input type="text" name="pw2" id="address"/></p>
+            <p><input type="submit" value="Submit" /></p>
+        </form>
+
+        <p></p>
+    </body>
+</html>
+
