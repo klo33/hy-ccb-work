@@ -10,7 +10,7 @@ import sec.project.auth.domain.Role;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 public interface RoleRepository extends JpaRepository<Role, Long> {
     public Role findByName(String name);

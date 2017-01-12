@@ -10,7 +10,7 @@ import sec.project.auth.domain.Role;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 public interface UserService {
     Account save(Account user);

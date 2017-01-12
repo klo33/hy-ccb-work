@@ -13,7 +13,7 @@ import sec.project.auth.repository.AccountRepository;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 @Service
 public class AccountService {

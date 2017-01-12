@@ -11,7 +11,7 @@ import sec.project.auth.domain.Account;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 public interface AccountRepository extends JpaRepository<Account, Long> {
         public Account findByUsername(String username);

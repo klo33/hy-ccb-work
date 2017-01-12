@@ -21,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 @Entity
 public class Event implements Serializable {

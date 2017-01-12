@@ -21,7 +21,7 @@ import sec.project.repository.SignupRepository;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 @Component
 public class DataLoader implements ApplicationRunner {

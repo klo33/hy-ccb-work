@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 @Service
 public class DbService {

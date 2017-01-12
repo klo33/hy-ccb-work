@@ -17,7 +17,7 @@ import javax.persistence.ManyToMany;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 @Entity
 public class Role {

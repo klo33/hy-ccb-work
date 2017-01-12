@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 //@Configuration
 //public class ThymeleafConfiguration {

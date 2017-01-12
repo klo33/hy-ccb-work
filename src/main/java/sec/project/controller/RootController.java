@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 @Controller
 public class RootController {

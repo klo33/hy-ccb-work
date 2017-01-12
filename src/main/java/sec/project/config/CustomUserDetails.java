@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.User;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 public class CustomUserDetails extends User {
     public CustomUserDetails(String username, String password, Collection authorities) {

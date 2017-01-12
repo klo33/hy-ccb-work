@@ -24,7 +24,7 @@ import sec.project.service.DbService;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 @Service
 public class UserServiceImpl implements UserService {

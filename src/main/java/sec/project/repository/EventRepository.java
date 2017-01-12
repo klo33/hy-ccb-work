@@ -11,7 +11,7 @@ import sec.project.domain.Event;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findByIsPrivate(Boolean isPrivate);

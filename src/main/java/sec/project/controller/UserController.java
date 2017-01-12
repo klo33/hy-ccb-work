@@ -29,7 +29,7 @@ import sec.project.service.DbService;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 @Controller
 @RequestMapping("/users")

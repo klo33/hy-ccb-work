@@ -7,7 +7,7 @@ package sec.project.config;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 
 import org.h2.server.web.WebServlet;

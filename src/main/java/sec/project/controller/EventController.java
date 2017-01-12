@@ -21,7 +21,7 @@ import sec.project.repository.EventRepository;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 @Controller
 @RequestMapping("/events")

@@ -24,7 +24,7 @@ import javax.persistence.Transient;
 
 /**
  *
- * @author Joni Lehtola
+ * @author J L
  */
 @Entity
 @Table(name="USER_DETAILS")
