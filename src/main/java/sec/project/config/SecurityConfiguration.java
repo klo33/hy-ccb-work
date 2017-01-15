@@ -1,5 +1,6 @@
 package sec.project.config;
 
+import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,15 +21,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private ServletContext servletContext;
+//  servletContext.setSessionTrackingModes(EnumSet.of(SessionTrackingMode.URL/* .COOKIE*/));
+    
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // no real security at the moment
+        // FLAW several
+
         http.authorizeRequests().antMatchers("/").permitAll().and()
                 .authorizeRequests().antMatchers("/console/**").permitAll().and()
                 .authorizeRequests().antMatchers("/events/*/form").permitAll().and()
+                .authorizeRequests().antMatchers("/redirect").permitAll().and()
                 .authorizeRequests().anyRequest().authenticated().and()
                 .formLogin().loginPage("/login").permitAll().and().logout().permitAll();
- 
+        // FLAW CSRF-safety disabled
         http.csrf().disable();
         http.headers().frameOptions().disable();
     }
@@ -36,8 +43,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-        auth.inMemoryAuthentication().withUser("erkki").password("erkki").roles("ADMIN").and()
-                .withUser("ulla").password("ulla").roles("USER");
     }
 
     @Bean

@@ -7,8 +7,8 @@
     <body>
         <header th:fragment="header">
             <ul>
-                <li><a href="/console/">H2 Console</a></li>
-                <li th:classappend="${#httpServletRequest.getRequestURI() == '/events' ? 'active':''}"><a th:href="@{/events}">Events</a></li>
+                <!--/*<li><a href="/console/">H2 Console</a></li>*/-->
+                <li th:classappend="${#httpServletRequest.getRequestURI() == '/events' ? 'active':''}" sec:authorize="hasAnyAuthority('ADMIN', 'USER')"><a th:href="@{/events}">Events</a></li>
                 <li th:classappend="${#httpServletRequest.getRequestURI() == '/users' ? 'active':''}" sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/users}">Users</a></li>
                 <li th:classappend="${#httpServletRequest.getRequestURI() == '/signups' ? 'active':''}"><a th:href="@{/signups}">Own signups</a></li>
             </ul>

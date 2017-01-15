@@ -6,12 +6,14 @@
 package sec.project.auth.domain;
 
 import javax.persistence.Entity;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 
 /**
  *
  * @author J L
  */
 @Entity
-public class Permission {
+public class Permission 
+        extends AbstractPersistable<Long> {
     
 }

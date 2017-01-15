@@ -8,7 +8,7 @@
             <div>..</div>
         </header>
         
-        <h1>Event - <span th:text="*{name}">Event name</span></h1>
+        <h1>Event - <a th:href="@{/redirect?to={url}(url=*{homepage})}" th:text="*{name}">Event name</a></h1>
         <p>Date: <span th:text="*{date}" th:remove="tag">22.3.4016</span></p>
         <form th:action="@{/events/{id}(id=${event.id})}" th:method="DELETE"><input type="submit" value="Poista"/></form>
         <div th:if="${event.signups}" th:remove="tag">
@@ -18,7 +18,10 @@
                 <th>Name</th><th>Address</th><th>Email</th>
             </tr>
             <tr th:each="entry:${event.signups}">
-                <td th:text="${entry.name}">Eeva Määttä</td><td th:text="${entry.address}">Mätäkuja 2</td><td th:text="${entry.email}">ee@ee.com</td>
+                <td th:text="${entry.name}">Eeva Määttä</td>
+                <!--/* FLAW 4: XSRF to change password AND FLAW 3: XSS */-->
+                <td th:utext="${entry.address}">Mätäkuja 2</td>                
+                <td th:text="${entry.email}">ee@ee.com</td>
             </tr>
         </table>
         </div>

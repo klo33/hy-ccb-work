@@ -35,6 +35,15 @@ public class Event implements Serializable {
     private Boolean isPrivate;
     
     private String name;
+    private String homepage;
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
     @Temporal(TemporalType.DATE)
     private Date date;
     

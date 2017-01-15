@@ -10,7 +10,8 @@
         <h2>Signups you have made</h2>
         <table>
             <tr th:each="signup: ${signups}">
-                <td th:text="${signup.event.name}">Tapahtuman nimi</td>
+                <!--/* FLAW (5): redirect */-->
+                <td ><a th:href="@{/redirect?to={url}(url=${signup.event.homepage})}" th:text="${signup.event.name}">Tapahtuman nimi</a></td>
                 <td><form th:action="@{/events/{id}/form(id=${signup.event.id})}" th:method="DELETE"><input type="submit" value="Cancel" /></form></td>
             </tr>
         </table>

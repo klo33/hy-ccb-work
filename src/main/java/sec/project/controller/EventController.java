@@ -38,7 +38,8 @@ public class EventController {
     @RequestMapping(value="", method = RequestMethod.POST)
     public String createNew(@RequestParam String name, 
             @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date date, 
-            @RequestParam(name = "priv", required = false) Boolean priv) {
+            @RequestParam(name = "priv", required = false) Boolean priv,
+            @RequestParam(name = "homepage", required = false) String homepage)  {
         Event event = new Event();
         event.setName(name);
         event.setDate(date);
@@ -46,6 +47,7 @@ public class EventController {
             event.setIsPrivate(priv);
         else
             event.setIsPrivate(false);
+        event.setHomepage(homepage);
         eventRepo.save(event);
         return "redirect:/events";
     }

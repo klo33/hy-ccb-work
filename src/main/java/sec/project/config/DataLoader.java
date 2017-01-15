@@ -47,6 +47,7 @@ public class DataLoader implements ApplicationRunner {
         Event event = new Event();
         event.setCreator(acc);
         event.setName("Testitapahtuma");
+        event.setHomepage("yle.fi");
         eventRepo.save(event);
         Signup su = new Signup(acc.getName(), "Osoite", acc.getEmail());
         su.setOwner(acc);

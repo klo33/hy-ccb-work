@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +23,6 @@ import sec.project.auth.domain.Role;
 import sec.project.auth.repository.AccountRepository;
 import sec.project.auth.repository.RoleRepository;
 import sec.project.auth.service.UserService;
-import sec.project.service.AccountService;
 import sec.project.service.DbService;
 
 /**
@@ -86,6 +84,7 @@ public class UserController {
     public String details(Model model) {
         String vastaus="<table><tr><th>Name</th><th>Email</th><th>Userid</th></tr>";
         Account acc = userService.getLoggedinUser();
+        /* FLAW SQL-injection */
         try {
             ResultSet res = dbService.getDbConnection().createStatement().executeQuery("SELECT * FROM USER_DETAILS WHERE NAME='"+acc.getName()+"'");
             while (res.next()) {
@@ -102,6 +101,8 @@ public class UserController {
         model.addAttribute("tiedot", vastaus);
         return "userdetails";
     }
+
+    /* FLAW 4: XSRF change password without consent */
     @RequestMapping(value="/own/password", method=RequestMethod.GET)
     public String pwd(@RequestParam String pw1, @RequestParam String pw2) {
         if (pw1.equals(pw2)) {

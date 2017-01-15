@@ -85,6 +85,7 @@ public class SignupController {
                 Logger.getLogger(SignupController.class.getName()).log(Level.INFO, null, ex);
             }
             model.addAttribute("username", acc.getUsername());
+            model.addAttribute("address", signup.getAddress());
             model.addAttribute("password", passwd);
             return "done";
         }
