@@ -5,11 +5,10 @@
  */
 package sec.project.domain;
 
-import sec.project.auth.domain.Account;
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.springframework.format.annotation.DateTimeFormat;
+import sec.project.auth.domain.Account;
 
 /**
  *
@@ -38,7 +37,11 @@ public class Event implements Serializable {
     private String homepage;
 
     public String getHomepage() {
-        return homepage;
+        if (homepage.startsWith("http")) {
+            return homepage;
+        } else {
+            return "http://" + homepage;
+        }
     }
 
     public void setHomepage(String homepage) {
@@ -97,5 +100,5 @@ public class Event implements Serializable {
     public List<Signup> getSignups() {
         return signups;
     }
-    
+
 }

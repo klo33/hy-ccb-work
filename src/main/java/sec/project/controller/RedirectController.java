@@ -5,15 +5,12 @@
  */
 package sec.project.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
 /**
  *
  * @author Joni Lehtola
  */
+// FIXED FLAW redirect
+/*
 @Controller
 public class RedirectController {
     @RequestMapping(value = "/redirect", method = RequestMethod.GET, params = "to")
@@ -21,3 +18,4 @@ public class RedirectController {
         return "redirect:http://"+to;
     }
 }
+*/

@@ -11,8 +11,8 @@
         <h1>Thank you! You have been signed up to the event!</h1>
         
         <p>Username <span th:text="${username}">username</span></p>
-        <!--/* FLAW (2): XSS */-->
-        <p>Address <span th:utext="${address}">address</span></p>
+        <!--/* FIXED FLAW (2): XSS */-->
+        <!--/*<p>Address <span th:text="${address}">address</span></p>*/-->
         <p>Password <span th:text="${password}">password</span></p>
 
         <div><a href="@{/signups}">All your signups</a></div>

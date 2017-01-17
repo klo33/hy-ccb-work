@@ -7,8 +7,8 @@
         <header th:replace="fragments/header :: header">
             <div>..</div>
         </header>
-        
-        <h1>Event - <a th:href="@{/redirect?to={url}(url=*{homepage})}" th:text="*{name}">Event name</a></h1>
+        <!--/*FIXED FLAW: Redirect (A10) */-->
+        <h1>Event - <a th:href="@{*{homepage}}" th:text="*{name}">Event name</a></h1>
         <p>Date: <span th:text="*{date}" th:remove="tag">22.3.4016</span></p>
         <form th:action="@{/events/{id}(id=${event.id})}" th:method="DELETE"><input type="submit" value="Poista"/></form>
         <div th:if="${event.signups}" th:remove="tag">

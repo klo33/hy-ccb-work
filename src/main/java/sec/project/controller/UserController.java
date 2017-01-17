@@ -5,12 +5,12 @@
  */
 package sec.project.controller;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,6 +38,9 @@ public class UserController {
     private UserService userService;
     @Autowired
     private RoleRepository roleRepo;
+
+    @Autowired
+    private AuthenticationManager authManager;
     
     @Autowired
     private DbService dbService;
@@ -82,32 +85,25 @@ public class UserController {
     
     @RequestMapping(value="/own", method=RequestMethod.GET)
     public String details(Model model) {
-        String vastaus="<table><tr><th>Name</th><th>Email</th><th>Userid</th></tr>";
         Account acc = userService.getLoggedinUser();
-        /* FLAW SQL-injection */
-        try {
-            ResultSet res = dbService.getDbConnection().createStatement().executeQuery("SELECT * FROM USER_DETAILS WHERE NAME='"+acc.getName()+"'");
-            while (res.next()) {
-                vastaus += "<tr><td>"+
-                    res.getString("NAME")+"</td><td>"+
-                    res.getString("EMAIL")+"</td><td>"+
-                    res.getString("USERNAME")+"</td></tr>";
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(this.getClass().getName()).info("SQL error "+ ex.getMessage());
+        if (acc == null) {
+            return null;
         }
-        
-        model.addAttribute("tiedot", vastaus);
+        model.addAttribute("user", acc);
         return "userdetails";
     }
 
-    /* FLAW 4: XSRF change password without consent */
-    @RequestMapping(value="/own/password", method=RequestMethod.GET)
-    public String pwd(@RequestParam String pw1, @RequestParam String pw2) {
-        if (pw1.equals(pw2)) {
-            Account acc = userService.getLoggedinUser();
-            acc.setPassword(pw1);
+    /* FIXED FLAW 4: XSRF change password without consent */
+    @RequestMapping(value = "/own/password", method = RequestMethod.PUT)
+    public String pwd(@RequestParam String password, @RequestParam String newpassword1, @RequestParam String newpassword2) {
+        Account acc = userService.getLoggedinUser();
+        if (acc == null) {
+            return null;
+        }
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(acc.getUsername(), password);
+        Authentication authenticate = authManager.authenticate(token);
+        if (authenticate.isAuthenticated() && newpassword1.equals(newpassword2)) {
+            acc.setPassword(newpassword1);
             userService.save(acc);
             return "redirect:/users/own?success=pwchange";
         }

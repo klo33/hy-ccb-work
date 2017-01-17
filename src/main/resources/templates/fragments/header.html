@@ -17,7 +17,7 @@
         </header>
         <div th:fragment="login">
 <div class="loggedin" sec:authorize="isAuthenticated()">
-    Logged in as <span sec:authentication="name">USER</span> <a th:href="@{/logout}">Log out</a>.    
+    Logged in as <span sec:authentication="name">USER</span> <a th:href="@{/login?logout}">Log out</a>.    
 
     <a th:href="@{/users/own}">Own details</a>
 </div>

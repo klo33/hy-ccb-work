@@ -8,19 +8,23 @@
             <div>..</div>
         </header>
         <h2>Your info</h2>
-        <!--/* FLAW 1: SQL-injection (A1) */-->
-        <div><span th:utext="${tiedot}" th:remove="tag"></span></div>
+        <!--/* FIXED FLAW 1: SQL-injection (A1) */-->
+        <div th:object="${user}">
+            <p><span>Name: </span><span th:text="*{name}">Users full name</span></p>
+            <p><span>Address: </span><span th:text="*{address}">Address</span></p>
+            <p><span>Email: </span><span th:text="*{email}">Address</span></p>
+        </div>
 
         <h3>Change password</h3>
 
-        <!--/* FLAW (2): CSRF Cross site request forgery for password change, passed on as GET */-->
-        <form action="#" th:action="@{/users/own/password}" th:method="GET">
-            <p><label for="pw1">New password</label>: <input type="text" name="pw1" id="name"/></p>
-            <p><label for="pw2">New password again</label>: <input type="text" name="pw2" id="address"/></p>
-            <!--/* FLAW very riski error message */-->
-            <div th:text="${#httpServletRequest.getParameter('error')}" 
-                th:unless="${#httpServletRequest.getParameter('error') == null}">
-                 Show some error msg
+        <!--/* FIXED FLAW (2): CSRF Cross site request forgery for password change, passed on as GET */-->
+        <form action="#" th:action="@{/users/own/password}" th:method="PUT">
+            <p><label for="password">Current password:</label>: <input type="password" name="password" /></p>
+            <p><label for="newpassword1">New password</label>: <input type="password" name="newpassword1" id="name"/></p>
+            <p><label for="newpassword2">New password again</label>: <input type="password" name="newpassword2" id="address"/></p>
+            <!--/* FIXED FLAW very riski error message */-->
+            <div th:unless="${#httpServletRequest.getParameter('error') == null}">
+                 Password not changed. Check current password and whether password confirmation.
             </div>
             <p><input type="submit" value="Submit" /></p>
         </form>

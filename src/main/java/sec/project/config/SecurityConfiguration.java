@@ -32,12 +32,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/").permitAll().and()
                 .authorizeRequests().antMatchers("/console/**").permitAll().and()
                 .authorizeRequests().antMatchers("/events/*/form").permitAll().and()
-                .authorizeRequests().antMatchers("/redirect").permitAll().and()
+                .authorizeRequests().antMatchers("/redirect").authenticated().and()
+                .authorizeRequests().antMatchers("/events/**").hasAnyAuthority("USER", "ADMIN").and()
+                .authorizeRequests().antMatchers("/users/own**").authenticated().and()
+                .authorizeRequests().antMatchers("/users/**").hasAuthority("ADMIN").and()
                 .authorizeRequests().anyRequest().authenticated().and()
                 .formLogin().loginPage("/login").permitAll().and().logout().permitAll();
         // FLAW CSRF-safety disabled
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
+//        http.csrf().disable();
+       http.headers().frameOptions().disable();
     }
 
     @Autowired

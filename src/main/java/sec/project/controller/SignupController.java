@@ -1,10 +1,6 @@
 package sec.project.controller;
 
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -14,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -25,7 +19,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import sec.project.auth.domain.Account;
 import sec.project.auth.repository.AccountRepository;
 import sec.project.auth.service.UserService;
@@ -128,7 +121,8 @@ public class SignupController {
             User user = (User)auth.getPrincipal();
             model.addAttribute("signups", signupRepository.findByOwner(userRepo.findByUsername(user.getUsername())));
             return "signups";
-        } else 
+        } else
+            //TODO Throw 401 etc.
             return null;
     }
 }
