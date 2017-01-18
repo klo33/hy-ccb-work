@@ -12,11 +12,12 @@ import sec.project.auth.domain.Account;
 public class Signup extends AbstractPersistable<Long> {
 
     @NotBlank
-    @Length(min = 3, max = 40)
+    @Length(min = 3, max = 140)
     private String name;
     @NotBlank
     @Email
     private String email;
+    @Length(min = 0, max = 140)
     private String address;
     @ManyToOne
     private Account owner;
