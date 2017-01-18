@@ -11,7 +11,7 @@
         <table>
             <tr th:each="signup: ${signups}">
                 <!--/* FIXED FLAW (5): redirect */-->
-                <td ><a th:href="@{${signup.event.homepage}}" th:text="${signup.event.name}">Tapahtuman nimi</a></td>
+                <td><a th:href="@{${signup.event.homepage}}" th:text="${signup.event.name}">Tapahtuman nimi</a></td>
                 <td><form th:action="@{/events/{id}/form(id=${signup.event.id})}" th:method="DELETE"><input type="submit" value="Cancel" /></form></td>
             </tr>
         </table>

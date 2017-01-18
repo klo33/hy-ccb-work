@@ -8,11 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -50,6 +48,10 @@ public class SignupController {
     @RequestMapping(value = "/events/{id}/form", method = RequestMethod.GET)
     public String loadForm(Model model, @PathVariable Long id) {
         Event event = eventRepo.findOne(id);
+        Account acc = userService.getLoggedinUser();
+        if (acc != null) {
+            model.addAttribute("account", acc);
+        }
         model.addAttribute("event", event);
         model.addAttribute("signup", new Signup());
         return "form";
@@ -87,37 +89,21 @@ public class SignupController {
     
   
 
-        static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        static SecureRandom rnd = new SecureRandom();
+    static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    static SecureRandom rnd = new SecureRandom();
 
-        private String randomString( int len ){
-           StringBuilder sb = new StringBuilder( len );
-           for( int i = 0; i < len; i++ ) 
-              sb.append( AB.charAt( rnd.nextInt(AB.length()) ) );
-           return sb.toString();
+    private String randomString(int len) {
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++) {
+            sb.append(AB.charAt(rnd.nextInt(AB.length())));
         }
-
-
-    
-    private void authenticateUserAndSetSession(User user, HttpServletRequest request) {
-        String username = user.getUsername();
-        String password = user.getPassword();
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
-
-        // generate session if one doesn't exist
-        request.getSession();
-
-        token.setDetails(new WebAuthenticationDetails(request));
-        Authentication authenticatedUser = authenticationManager.authenticate(token);
-
-        SecurityContextHolder.getContext().setAuthentication(authenticatedUser);
+        return sb.toString();
     }
-    
+
     @RequestMapping("/signups")
     public String signups(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth.isAuthenticated() && !auth.getPrincipal().toString().equals("anonymousUser")) {
-            Logger.getLogger(this.getClass().getName()).info("AUTH: " + auth.getPrincipal());
             User user = (User)auth.getPrincipal();
             model.addAttribute("signups", signupRepository.findByOwner(userRepo.findByUsername(user.getUsername())));
             return "signups";

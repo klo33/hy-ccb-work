@@ -19,8 +19,8 @@
             </tr>
             <tr th:each="entry:${event.signups}">
                 <td th:text="${entry.name}">Eeva Määttä</td>
-                <!--/* FLAW 4: XSRF to change password AND FLAW 3: XSS */-->
-                <td th:utext="${entry.address}">Mätäkuja 2</td>                
+                <!--/* FIXED FLAW 4: XSRF to change password AND FIXED FLAW 3: XSS */-->
+                <td th:text="${entry.address}">Mätäkuja 2</td>                
                 <td th:text="${entry.email}">ee@ee.com</td>
             </tr>
         </table>

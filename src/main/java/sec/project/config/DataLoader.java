@@ -10,7 +10,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import sec.project.auth.domain.Account;
-import sec.project.auth.domain.Role;
 import sec.project.auth.repository.AccountRepository;
 import sec.project.auth.repository.RoleRepository;
 import sec.project.auth.service.UserService;
@@ -51,6 +50,7 @@ public class DataLoader implements ApplicationRunner {
         eventRepo.save(event);
         Signup su = new Signup(acc.getName(), "Osoite", acc.getEmail());
         su.setOwner(acc);
+        su.setEvent(event);
         signupRepo.save(su);
         
         

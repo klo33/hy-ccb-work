@@ -4,7 +4,7 @@
         <title>Sign up form</title>
         <style>
             .piilotettu {
-                display: none;
+                text-color: gray;
             }
         </style>
     </head>
@@ -16,7 +16,7 @@
         <h1>List of all events</h1>
 
         <ul>
-            <!--/* FLAW (4: A7): Missing function level access control - only hidden */-->
+            <!--/* FIXED FLAW (4: A7): Missing function level access control - only hidden */-->
             <li th:each="event:${events}" th:classappend="${event.isPrivate}?piilotettu"><a th:href="@{/events/{id}(id=${event.id})}" th:text="${event.name}">Nimi</a></li>
         </ul>
 

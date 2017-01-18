@@ -23,19 +23,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private ServletContext servletContext;
-//  servletContext.setSessionTrackingModes(EnumSet.of(SessionTrackingMode.URL/* .COOKIE*/));
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // FLAW several
+        // FIXED FLAW several
 
         http.authorizeRequests().antMatchers("/").permitAll().and()
-                .authorizeRequests().antMatchers("/console/**").permitAll().and()
+                .authorizeRequests().antMatchers("/console/**").denyAll().and()
                 .authorizeRequests().antMatchers("/events/*/form").permitAll().and()
-                .authorizeRequests().antMatchers("/redirect").authenticated().and()
+                .authorizeRequests().antMatchers("/redirect").denyAll().and()
                 .authorizeRequests().antMatchers("/events/**").hasAnyAuthority("USER", "ADMIN").and()
                 .authorizeRequests().antMatchers("/users/own**").authenticated().and()
+                .authorizeRequests().antMatchers("/users/own/password**").authenticated().and()
                 .authorizeRequests().antMatchers("/users/**").hasAuthority("ADMIN").and()
+                .authorizeRequests().antMatchers("/users/*/*").hasAuthority("ADMIN").and()
                 .authorizeRequests().anyRequest().authenticated().and()
                 .formLogin().loginPage("/login").permitAll().and().logout().permitAll();
         // FLAW CSRF-safety disabled

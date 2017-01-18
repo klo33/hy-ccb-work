@@ -6,8 +6,13 @@
 package sec.project.controller;
 
 import java.util.Date;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,10 +32,25 @@ import sec.project.repository.EventRepository;
 public class EventController {
     @Autowired
     EventRepository eventRepo;
+
     
     @RequestMapping(value="", method = RequestMethod.GET)
-    public String listAll(Model model) {
-        model.addAttribute("events", eventRepo.findAll());
+    public String listAll(Model model, HttpServletRequest request) {
+        /* FIXED FLAW: List all private events */
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = false;
+        for (GrantedAuthority a : auth.getAuthorities()) {
+            if (a.getAuthority().equals("ADMIN")) {
+                isAdmin = true;
+            }
+        }
+        if (isAdmin) {
+            Logger.getLogger(this.getClass().getName()).info("Create ADMIN-list");
+            model.addAttribute("events", eventRepo.findAll());
+        } else {
+            Logger.getLogger(this.getClass().getName()).info("Create NON-ADMIN-list");
+            model.addAttribute("events", eventRepo.findByIsPrivate(false));
+        }
         return "eventlist";
     }
     

@@ -5,9 +5,6 @@
  */
 package sec.project.auth.service;
 
-import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,7 +17,6 @@ import sec.project.auth.domain.Account;
 import sec.project.auth.domain.Role;
 import sec.project.auth.repository.AccountRepository;
 import sec.project.auth.repository.RoleRepository;
-import sec.project.service.DbService;
 
 /**
  *
@@ -125,14 +121,5 @@ public class UserServiceImpl implements UserService {
         else 
             return null;
     }
-    
-    @Autowired
-    private DbService dbService;
-    
-    private Account saveImpl(Account acc) {
-        Account a = userRepo.save(acc);
-        // Tehdään lisäksi turvaton tallennus nimelle ja sähköpostiosoitteelle
-   //     dbService.getDbConnection().createStatement().execute("UPDATE User_Details SET name='"+acc.getName()+"' WHERE id="+acc.getId());
-        return a;
-    }
+
 }

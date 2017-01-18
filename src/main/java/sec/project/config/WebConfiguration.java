@@ -19,8 +19,9 @@ import org.springframework.context.annotation.Configuration;
 public class WebConfiguration {
     @Bean
     ServletRegistrationBean h2servletRegistration(){
-        ServletRegistrationBean registrationBean = new ServletRegistrationBean( new WebServlet());
-        registrationBean.addUrlMappings("/console/*");
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(new WebServlet());
+        //disable H2-console
+        //registrationBean.addUrlMappings("/console/*");
         return registrationBean;
     }
 }
