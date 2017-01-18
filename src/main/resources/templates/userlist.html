@@ -12,7 +12,8 @@
             <tr th:each="user: ${users}">
                 <td th:text="${user.name}">Nimi</td>
                 <td th:text="${user.username}">Account</td>
-                <td><div th:each="role: ${user.roles}" th:remove="tag"><span th:text="${role.name}">ROLE</span><form th:action="@{/users/{id}/denounce(id=${user.id})}" th:method="PUT"><input type="hidden" th:name="${role.name}" value="d"/><input type="submit" value="x" /></form> &nbsp;</div></td>
+                <td><div th:each="role: ${user.roles}" th:remove="tag"><span th:text="${role.name}">ROLE</span><form th:action="@{/users/{id}/denounce(id=${user.id})}" th:method="PUT" style="display:inline"><input type="hidden" th:name="auth" th:value="${role.name}"/><input type="submit" value="x" /></form> &nbsp;</div></td>
+                <td><form th:action="@{/users/{id}/promote(id=${user.id})}" th:method="PUT"><select name="auth"><option th:each="role : ${roles}" th:value="${role.name}" th:text="${role.name}">ROOLI</option></select><input type="submit" value="Add" /></form></td>
                 <td><form th:action="@{/users/{id}(id=${user.id})}" th:method="DELETE"><input type="submit" value="Delete" /></form></td>
             </tr>
         </table>

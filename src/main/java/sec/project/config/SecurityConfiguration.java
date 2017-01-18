@@ -33,6 +33,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/console/**").permitAll().and()
                 .authorizeRequests().antMatchers("/events/*/form").permitAll().and()
                 .authorizeRequests().antMatchers("/redirect").permitAll().and()
+                // FLAW allows access to /users submappings
+                .authorizeRequests().antMatchers("/users").hasAuthority("ADMIN").and()
                 .authorizeRequests().anyRequest().authenticated().and()
                 .formLogin().loginPage("/login").permitAll().and().logout().permitAll();
         // FLAW CSRF-safety disabled

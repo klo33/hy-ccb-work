@@ -10,7 +10,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 import sec.project.auth.domain.Account;
-import sec.project.auth.domain.Role;
 import sec.project.auth.repository.AccountRepository;
 import sec.project.auth.repository.RoleRepository;
 import sec.project.auth.service.UserService;
@@ -46,10 +45,18 @@ public class DataLoader implements ApplicationRunner {
         userService.addRole(acc, "SIGNUP");
         Event event = new Event();
         event.setCreator(acc);
-        event.setName("Testitapahtuma");
-        event.setHomepage("yle.fi");
+        event.setName("Test event");
+        event.setHomepage("cs.helsinki.fi");
+        event.setIsPrivate(Boolean.FALSE);
         eventRepo.save(event);
+        Event event2 = new Event();
+        event2.setCreator(acc);
+        event.setName("Secred meeting");
+        event.setHomepage("f-secure.fi");
+        event.setIsPrivate(Boolean.TRUE);
+        eventRepo.save(event2);
         Signup su = new Signup(acc.getName(), "Osoite", acc.getEmail());
+        su.setEvent(event);
         su.setOwner(acc);
         signupRepo.save(su);
         
