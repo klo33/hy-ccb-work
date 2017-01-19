@@ -3,6 +3,10 @@
 * Sources FIXED version: https://github.com/klo33/hy-ccb-work/tree/flaw-fixed
 
 Nicer version on REPORT.txt-file
+In README.md formatting is crooked.
+
+## Introduction to a program
+Program is a simple event manager, where guest can signup to an event. With signup a SIGNUP-type useraccount in given, where account is email address given. Normal USER-type user "ted" can create new Events and check who has signup for the events. Only ADMIN can see the hidden events. 
 
 ## FLAW 1: SQL-injection (second order) (A1)
 ### Issue: SQL Injection attact to gain all user account details
